@@ -1,0 +1,52 @@
+#! /usr/bin/env node
+
+// 1. 创建项目 2.更改配置文件 3.ui界面 @gm/ui
+const program=require('commander')
+
+
+// 万一重名怎么办?
+// 这里注册创建项目指令
+program
+    .command('create <app-name>')
+    .description('create a new project')
+    .option('-f, --force','overwrite target directory if it exists')
+    .action((name,cmd)=>{
+        require('../lib/creator')(name,cmd)
+    })
+
+// 这里注册项目配置指令
+// vue config --get a
+// vue config --set a 1 ==> 配置文件中
+// vue config -0
+program
+    .command('config [value]')
+    .description('inspect and modify the config')
+    .option('-g, --get <path>','get value from option')
+    .option('-s, --set <path> <value>')
+    .option('-d, --delete <path>','delete option from config')
+    .action((value,cmd)=>{
+        console.log(value)
+        console.log(cmd)
+    })
+
+// gm UI地方配置项目
+program
+    .command('ui')
+    .description('start and open gm-ui')
+    .option('-p, --port <port>', 'Port used for the UI Server')
+    .action((cmd)=>{
+        console.log(cmd)
+    })
+
+// 帮助文档配置
+program
+    .on('--help',function(){
+        console.log()
+        console.log(`Run fpa <command> --help show details`)
+        console.log()
+    })
+
+program
+    .version(`gmcg@${require('../../package.json').version}`)
+    .usage(`<command> [option]`)
+program.parse(process.argv)
