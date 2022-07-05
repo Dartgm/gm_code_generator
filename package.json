@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "webpack --env=product",
-    "serve": "webpack server --client-progress --env=development"
+    "serve": "webpack server --client-progress --env=development",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -56,10 +57,9 @@
     "chalk": "^5.0.1",
     "ora": "^5.0.0"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "validate-commit-msg",
-
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
     }
   }
 }
